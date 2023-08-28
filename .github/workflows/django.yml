@@ -30,7 +30,7 @@ jobs:
           pip install pycryptodome
           pip install flake8
       - name: Flake8 Lint
-        run: flake8 ${{ github.workspace }}/flourish_caregiver
+        run: flake8 ${{ github.workspace }}/potlako
       - name: Run Tests
         run: |
           python manage.py test
