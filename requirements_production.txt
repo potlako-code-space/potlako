@@ -59,3 +59,4 @@ django_q
 pycryptodome
 xlwt
 django-queryable-properties
+django-cacheops
