@@ -166,11 +166,11 @@ WSGI_APPLICATION = 'potlako.wsgi.application'
 mysql_config = configparser.ConfigParser()
 mysql_config.read(os.path.join(ETC_DIR, 'mysql.ini'))
 
-HOST = mysql_config['mysql']['host']
-DB_USER = mysql_config['mysql']['user']
-DB_PASSWORD = mysql_config['mysql']['password']
-DB_NAME = mysql_config['mysql']['database']
-PORT = mysql_config['mysql']['port']
+HOST = os.getenv('MYSQL_HOST')
+DB_USER = os.getenv('MYSQL_USER')
+DB_PASSWORD = os.getenv('MYSQL_PASSWORD')
+DB_NAME = os.getenv('MYSQL_DB_NAME')
+PORT = os.getenv('MYSQL_PORT')
 
 DATABASES = {
     'default': {
@@ -301,7 +301,7 @@ COMMUNITIES = config['communities']
 DEVICE_ID = os.getenv('device_id')
 DEVICE_ROLE = os.getenv('role')
 
-EDC_SYNC_SERVER_IP =  os.getenv('server_ip')
+EDC_SYNC_SERVER_IP = os.getenv('server_ip')
 EDC_SYNC_FILES_REMOTE_HOST = os.getenv('remote_host')
 EDC_SYNC_FILES_USER = os.getenv('sync_user')
 EDC_SYNC_FILES_USB_VOLUME = os.getenv('usb_volume')
@@ -324,12 +324,10 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 CACHEOPS_REDIS = "redis://localhost:6379/1"
 
 CACHEOPS = {
-
     'auth.user': {'ops': 'all', 'timeout': 60*15},
     'auth.*': {'ops': 'all', 'timeout': 60*15},
     'potlako_subject.models.onschedule.*': None,
     'edc_appointment.models.appointment.*': None,
     'potlako_subject.models.navigation_summary_and_plan.*': None,
-    '*.*': {'ops': 'all', 'timeout': 60*60*24},
     '*.*': {'ops': 'get', 'timeout': 60*60*24},
 }
