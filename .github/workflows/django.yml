@@ -34,4 +34,20 @@ jobs:
       - name: Run Tests
         run: |
           python manage.py test
-        
+        env:
+          BASE_API_URL: ${{ secrets.BASE_API_URL }}
+          EMAIL_BACKEND: ${{ secrets.EMAIL_BACKEND }}
+          EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
+          EMAIL_USE_TLS: ${{ secrets.EMAIL_USE_TLS }}
+          EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+          EVALUATION_TIMELINE: ${{ secrets.EVALUATION_TIMELINE }}
+          NAV_PLAN_API: ${{ secrets.NAV_PLAN_API }}
+          DEVICE_ID: ${{ secrets.DEVICE_ID }}
+          DEVICE_ROLE: ${{ secrets.DEVICE_ROLE }}
+          EDC_SYNC_SERVER_IP: ${{ secrets.EDC_SYNC_SERVER_IP }}
+          EDC_SYNC_FILES_REMOTE_HOST: ${{ secrets.EDC_SYNC_FILES_REMOTE_HOST }}
+          EDC_SYNC_FILES_USER: ${{ secrets.EDC_SYNC_FILES_USER }}
+          EDC_SYNC_FILES_USB_VOLUME: ${{ secrets.EDC_SYNC_FILES_USB_VOLUME }}
+

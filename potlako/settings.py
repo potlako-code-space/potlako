@@ -54,15 +54,14 @@ config = configparser.ConfigParser()
 config.read(CONFIG_PATH)
 
 # EDC SMS configuration
-BASE_API_URL = config['edc_sms']['base_api_url']
+BASE_API_URL = os.getenv('EDC_SMS_BASE_API_URL')
 
-# email configurations
-EMAIL_BACKEND = config['email_conf'].get('email_backend')
-EMAIL_HOST = config['email_conf'].get('email_host')
-EMAIL_USE_TLS = config['email_conf'].get('email_use_tls')
-EMAIL_PORT = config['email_conf'].get('email_port')
-EMAIL_HOST_USER = config['email_conf'].get('email_user')
-EMAIL_HOST_PASSWORD = config['email_conf'].get('email_host_pwd')
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # Application definition
 
@@ -235,8 +234,8 @@ USE_L10N = False
 USE_TZ = True
 
 # server api for updating navigation plans
-EVALUATION_TIMELINE = config['edc_sync'].get('evaluation_timeline_api')
-NAV_PLAN_API = config['edc_sync'].get('nav_plan_api')
+EVALUATION_TIMELINE = os.getenv('evaluation_timeline_api')
+NAV_PLAN_API = os.getenv('nav_plan_api')
 
 # Django q configurations
 
@@ -299,13 +298,13 @@ PARENT_REFERENCE_MODEL2 = ''
 
 COMMUNITIES = config['communities']
 
-DEVICE_ID = config['edc_device'].get('device_id', '99')
-DEVICE_ROLE = config['edc_device'].get('role')
+DEVICE_ID = os.getenv('device_id')
+DEVICE_ROLE = os.getenv('role')
 
-EDC_SYNC_SERVER_IP = config['edc_sync'].get('server_ip')
-EDC_SYNC_FILES_REMOTE_HOST = config['edc_sync_files'].get('remote_host')
-EDC_SYNC_FILES_USER = config['edc_sync_files'].get('sync_user')
-EDC_SYNC_FILES_USB_VOLUME = config['edc_sync_files'].get('usb_volume')
+EDC_SYNC_SERVER_IP =  os.getenv('server_ip')
+EDC_SYNC_FILES_REMOTE_HOST = os.getenv('remote_host')
+EDC_SYNC_FILES_USER = os.getenv('sync_user')
+EDC_SYNC_FILES_USB_VOLUME = os.getenv('usb_volume')
 
 CORS_ALLOW_ALL_ORIGINS = True
 # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
