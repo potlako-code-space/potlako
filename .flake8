@@ -9,7 +9,8 @@ exclude =
   manage.py,
   settings.py,
   __init__.py,
-  potlako/config
+  config,
+  management,
 
 
 per-file-ignores =
