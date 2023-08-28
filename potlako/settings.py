@@ -331,3 +331,17 @@ CACHEOPS = {
     'potlako_subject.models.navigation_summary_and_plan.*': None,
     '*.*': {'ops': 'get', 'timeout': 60*60*24},
 }
+
+if 'test' in sys.argv:
+    class DisableMigrations:
+
+        def __contains__(self, item):
+            return True
+
+        def __getitem__(self, item):
+            return None
+
+
+    MIGRATION_MODULES = DisableMigrations()
+    PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
+    DEFAULT_FILE_STORAGE = 'inmemorystorage.InMemoryStorage'
