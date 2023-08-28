@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 from django.apps import apps as django_apps
-from django.conf import settings
 from django.views.generic import TemplateView
 from edc_base.view_mixins import EdcBaseViewMixin
 from edc_navbar import NavbarViewMixin
