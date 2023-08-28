@@ -333,6 +333,8 @@ CACHEOPS = {
 }
 
 if 'test' in sys.argv:
+
+    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
     class DisableMigrations:
 
         def __contains__(self, item):
