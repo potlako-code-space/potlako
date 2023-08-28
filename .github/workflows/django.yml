@@ -46,8 +46,8 @@ jobs:
           EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
           EVALUATION_TIMELINE: ${{ secrets.EVALUATION_TIMELINE }}
           NAV_PLAN_API: ${{ secrets.NAV_PLAN_API }}
-          DEVICE_ID: ${{ secrets.DEVICE_ID }}
-          DEVICE_ROLE: ${{ secrets.DEVICE_ROLE }}
+          EDC_DEVICE_ID: ${{ secrets.EDC_DEVICE_ID }}
+          EDC_DEVICE_ROLE: ${{ secrets.EDC_DEVICE_ROLE }}
           EDC_SYNC_SERVER_IP: ${{ secrets.EDC_SYNC_SERVER_IP }}
           EDC_SYNC_FILES_REMOTE_HOST: ${{ secrets.EDC_SYNC_FILES_REMOTE_HOST }}
           EDC_SYNC_FILES_USER: ${{ secrets.EDC_SYNC_FILES_USER }}
