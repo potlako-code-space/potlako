@@ -61,3 +61,4 @@ xlwt
 django-queryable-properties
 django-cacheops
 mysqlclient
+PyPDF2
