@@ -9,7 +9,9 @@ exclude =
   manage.py,
   settings.py,
   __init__.py,
+  potlako/config/*
 
 
 per-file-ignores =
-    flourish_caregiver/apps.py:F401
+    potlako/apps.py:F401
+
