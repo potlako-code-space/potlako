@@ -35,6 +35,7 @@ jobs:
         run: flake8 ${{ github.workspace }}/potlako
       - name: Run Tests
         run: |
+          python manage.py migrate edc_facility initial
           python manage.py test
         env:
           BASE_API_URL: ${{ secrets.BASE_API_URL }}
