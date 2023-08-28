@@ -139,7 +139,7 @@ class EdcSyncFilesAppConfig(BaseEdcSyncFilesAppConfig):
         folder_dict = {'Client': client_folders,
                        'CentralServer': server_folders
                        }
-        role = os.getenv('EDC_DEVICE_ID')
+        role = os.getenv('EDC_DEVICE_ROLE')
 
         for folder in folder_dict.get(role):
             if not os.path.exists(folder):
