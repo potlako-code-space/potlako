@@ -109,17 +109,17 @@ class EdcSmsAppConfig(BaseEdcSmsAppConfig):
 
 class EdcSyncAppConfig(BaseEdcSyncAppConfig):
     edc_sync_files_using = True
-    server_ip = config['edc_sync'].get('server_ip')
+    server_ip = os.getenv('EDC_SYNC_SERVER_IP')
     base_template_name = 'potlako/base.html'
     update_models = True
 
 
 class EdcSyncFilesAppConfig(BaseEdcSyncFilesAppConfig):
     edc_sync_files_using = True
-    remote_host = config['edc_sync_files'].get('remote_host')
-    user = config['edc_sync_files'].get('sync_user')
-    usb_volume = config['edc_sync_files'].get('usb_volume')
-    remote_media = config['edc_sync_files'].get('remote_media')
+    remote_host = os.getenv('EDC_SYNC_FILES_REMOTE_HOST')
+    user = os.getenv('EDC_SYNC_FILES_SYNC_USER')
+    usb_volume = os.getenv('EDC_SYNC_FILES_USB_VOLUME')
+    remote_media = os.getenv('EDC_SYNC_FILES_REMOTE_MEDIA')
     tmp_folder = os.path.join(remote_media, 'transactions', 'tmp')
     incoming_folder = os.path.join(remote_media, 'transactions', 'incoming')
     media_path = os.path.join(settings.MEDIA_ROOT, 'verbal_consents')
@@ -139,7 +139,7 @@ class EdcSyncFilesAppConfig(BaseEdcSyncFilesAppConfig):
         folder_dict = {'Client': client_folders,
                        'CentralServer': server_folders
                        }
-        role = config['edc_device'].get('role')
+        role = os.getenv('EDC_DEVICE_ID')
 
         for folder in folder_dict.get(role):
             if not os.path.exists(folder):
