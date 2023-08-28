@@ -37,7 +37,7 @@ INDEX_PAGE = 'potlako-plus.bhp.org.bw:8000'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o(^0$9zu2w5eby-^x&dd441d(@*#(+($can2uomfq%o(@p-fm+'
 
-KEY_PATH = os.path.join(ETC_DIR, 'crypto_fields')
+KEY_PATH = os.environ.get("KEY_PATH", os.path.expanduser("~/crypto_fields"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
