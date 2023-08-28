@@ -123,7 +123,7 @@ INSTALLED_APPS = [
     'potlako.apps.EdcSmsAppConfig',
     'potlako.apps.AppConfig',
     'cacheops'
-    ]
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,7 +138,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'edc_dashboard.middleware.DashboardMiddleware',
     'edc_subject_dashboard.middleware.DashboardMiddleware',
-    ]
+]
 
 ROOT_URLCONF = 'potlako.urls'
 
@@ -154,10 +154,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'potlako.context_processors.offline',
-                ],
-            },
+            ],
         },
-    ]
+    },
+]
 
 WSGI_APPLICATION = 'potlako.wsgi.application'
 
@@ -180,33 +180,33 @@ DATABASES = {
         'PASSWORD': DB_PASSWORD,
         'HOST': HOST,  # Or an IP Address that your DB is hosted on
         'PORT': PORT,
-        }
     }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+         'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
      },
     {'NAME':
-        'django.contrib.auth.password_validation.MinimumLengthValidator',
+         'django.contrib.auth.password_validation.MinimumLengthValidator',
      },
     {'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
+         'django.contrib.auth.password_validation.CommonPasswordValidator',
      },
     {'NAME':
-        'django.contrib.auth.password_validation.NumericPasswordValidator',
+         'django.contrib.auth.password_validation.NumericPasswordValidator',
      },
-    ]
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        ),
-    }
+    ),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -217,7 +217,7 @@ LANGUAGES = (
     ('tn', 'Setswana'),
     ('en', 'English'),
     ('kck', 'Ikalanga'),
-    )
+)
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 SHORT_DATE_FORMAT = 'd/m/Y'
@@ -243,7 +243,7 @@ Q_CLUSTER = {
     'name': 'edc_sms',
     'retry': 60,
     'orm': 'default',
-    }
+}
 
 SITE_CODE = '40'
 DEFAULT_STUDY_SITE = '40'
@@ -266,9 +266,10 @@ DASHBOARD_URL_NAMES = {
     'subject_dashboard_url': 'potlako_dashboard:subject_dashboard_url',
     'potlako_follow_listboard_url': 'potlako_follow:potlako_follow_listboard_url',
     'potlako_navigation_listboard_url': 'potlako_follow:potlako_navigation_listboard_url',
-    'potlako_investigation_listboard_url': 'potlako_follow:potlako_investigation_listboard_url',
+    'potlako_investigation_listboard_url':
+        'potlako_follow:potlako_investigation_listboard_url',
     'verbal_consent_url': 'potlako_dashboard:verbal_consent_url'
-    }
+}
 
 LAB_DASHBOARD_URL_NAMES = {}
 
@@ -279,12 +280,13 @@ DASHBOARD_BASE_TEMPLATES = {
     'data_manager_listboard_template': 'edc_data_manager/listboard.html',
     'potlako_follow_listboard_template': 'potlako_follow/follow_listboard.html',
     'potlako_navigation_listboard_template': 'potlako_follow/navigation_listboard.html',
-    'potlako_investigation_listboard_template': 'potlako_follow/investigation_fu_listboard.html',
+    'potlako_investigation_listboard_template':
+        'potlako_follow/investigation_fu_listboard.html',
     'screening_listboard_template': 'potlako_dashboard/screening/listboard.html',
     'endpoint_listboard_template': 'potlako_dashboard/endpoint/listboard.html',
     'subject_listboard_template': 'potlako_dashboard/subject/listboard.html',
     'subject_dashboard_template': 'potlako_dashboard/subject/dashboard.html',
-    }
+}
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 GIT_DIR = BASE_DIR
@@ -312,38 +314,38 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'https://potlako-plus-dev.bhp.org.bw'
-    ]
+]
 
 # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
 CORS_ALLOWED_ORIGIN_REGEXES = [
     'http://localhost:8000',
     'https://potlako-plus-dev.bhp.org.bw'
-    ]
+]
 
 # url to redis
 CACHEOPS_REDIS = "redis://localhost:6379/1"
 
 CACHEOPS = {
-    'auth.user': {'ops': 'all', 'timeout': 60*15},
-    'auth.*': {'ops': 'all', 'timeout': 60*15},
+    'auth.user': {'ops': 'all', 'timeout': 60 * 15},
+    'auth.*': {'ops': 'all', 'timeout': 60 * 15},
     'potlako_subject.models.onschedule.*': None,
     'edc_appointment.models.appointment.*': None,
     'potlako_subject.models.navigation_summary_and_plan.*': None,
-    '*.*': {'ops': 'get', 'timeout': 60*60*24},
+    '*.*': {'ops': 'get', 'timeout': 60 * 60 * 24},
 }
 
 if 'test' in sys.argv:
-
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'TEST': {
+                'SERIALIZE': False,
+            },
         }
     }
 
-    TEST = {
-        'SERIALIZE': False,
-    }
+
     class DisableMigrations:
 
         def __contains__(self, item):
