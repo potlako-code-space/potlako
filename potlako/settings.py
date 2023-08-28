@@ -44,6 +44,8 @@ DEBUG = False
 
 OFFLINE = False
 
+AUTO_CREATE_KEYS = True
+
 ALLOWED_HOSTS = ['localhost', 'potlako-plus.bhp.org.bw', '127.0.0.1']
 
 CONFIG_FILE = f'{APP_NAME}.ini'
