@@ -27,6 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements_production.txt
           pip uninstall pycrypto -y
+          pip uninstall pycryptodome -y
           pip install pycryptodome
           pip install flake8
       - name: Flake8 Lint
