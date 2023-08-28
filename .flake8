@@ -9,7 +9,7 @@ exclude =
   manage.py,
   settings.py,
   __init__.py,
-  config,
+  configs,
   management,
 
 
