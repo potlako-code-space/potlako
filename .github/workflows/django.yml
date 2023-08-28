@@ -34,7 +34,7 @@ jobs:
       - name: Flake8 Lint
         run: flake8 ${{ github.workspace }}/potlako
       - name: Make a directory for the keys
-        run: mkdir -p /etc/potlako/crypto_fields
+        run: sudo mkdir -p /etc/potlako/crypto_fields
       - name: Generate keys
         run: |
           python manage.py generate_crypto_fields_keys /etc/potlako/crypto_fields
