@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DB_USER: your_mysql_username
+      MYSQL_DB_PASSWORD: your_mysql_password
+      MYSQL_DB_NAME: your_database_name
+      MYSQL_PORT: 3306
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      EDC_SMS_BASE_API_URL: ${EDC_SMS_BASE_API_URL}
+      BASE_API_URL: ${BASE_API_URL}
+      EMAIL_BACKEND: ${EMAIL_BACKEND}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_USE_TLS: ${EMAIL_USE_TLS}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
+      COMMUNITIES_ENHANCED_CARE: ${COMMUNITIES_ENHANCED_CARE}
+      COMMUNITIES_INTERVENTION: ${COMMUNITIES_INTERVENTION}
+      EDC_DEVICE_ROLE: ${EDC_DEVICE_ROLE}
+      EDC_DEVICE_ID: ${EDC_DEVICE_ID}
+      EDC_SYNC_SERVER_IP: ${EDC_SYNC_SERVER_IP}
+      EDC_SYNC_EVALUATION_TIMELINE_API: ${EDC_SYNC_EVALUATION_TIMELINE_API}
+      EDC_SYNC_NAV_PLAN_API: ${EDC_SYNC_NAV_PLAN_API}
+      EDC_SYNC_FILES_SYNC_USER: ${EDC_SYNC_FILES_SYNC_USER}
+      EDC_SYNC_FILES_REMOTE_HOST: ${EDC_SYNC_FILES_REMOTE_HOST}
+      EDC_SYNC_FILES_USB_VOLUME: ${EDC_SYNC_FILES_USB_VOLUME}
+      EDC_SYNC_FILES_REMOTE_MEDIA: ${EDC_SYNC_FILES_REMOTE_MEDIA}
+
+volumes:
+  mysql_data:

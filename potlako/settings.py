@@ -166,11 +166,11 @@ WSGI_APPLICATION = 'potlako.wsgi.application'
 mysql_config = configparser.ConfigParser()
 mysql_config.read(os.path.join(ETC_DIR, 'mysql.ini'))
 
-HOST = os.getenv('MYSQL_HOST')
+HOST = 'db'
 DB_USER = os.getenv('MYSQL_USER')
 DB_PASSWORD = os.getenv('MYSQL_PASSWORD')
 DB_NAME = os.getenv('MYSQL_DB_NAME')
-PORT = os.getenv('MYSQL_PORT')
+PORT = '3306'
 
 DATABASES = {
     'default': {
@@ -296,7 +296,7 @@ COUNTRY = 'botswana'
 PARENT_REFERENCE_MODEL1 = ''
 PARENT_REFERENCE_MODEL2 = ''
 
-COMMUNITIES = config['communities']
+COMMUNITIES = os.getenv('COMMUNITIES_ENHANCED_CARE').split(',')
 
 DEVICE_ID = os.getenv('device_id')
 DEVICE_ROLE = os.getenv('role')
