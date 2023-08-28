@@ -296,7 +296,7 @@ COUNTRY = 'botswana'
 PARENT_REFERENCE_MODEL1 = ''
 PARENT_REFERENCE_MODEL2 = ''
 
-COMMUNITIES = os.getenv('COMMUNITIES_ENHANCED_CARE').split(',')
+COMMUNITIES = os.getenv('COMMUNITIES_ENHANCED_CARE')
 
 DEVICE_ID = os.getenv('device_id')
 DEVICE_ROLE = os.getenv('role')
