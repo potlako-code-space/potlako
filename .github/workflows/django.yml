@@ -72,5 +72,5 @@ jobs:
       - name: Report Coverage
         run: |
           coverage xml
-          curl -s https://codecov.io/bash | bash
+          bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
 
