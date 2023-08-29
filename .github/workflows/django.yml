@@ -6,6 +6,17 @@ on:
   pull_request:
     branches: [ "develop" ]
 
+services:
+  db:
+    image: mysql:5.7
+    env:
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      MYSQL_DATABASE: ${{ secrets.MYSQL_DB_NAME }}
+      MYSQL_USER: ${{ secrets.MYSQL_USER }}
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+    ports: ["3306:3306"]
+    options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
 jobs:
   build:
 
@@ -64,4 +75,9 @@ jobs:
           EDC_SYNC_FILES_USER: ${{ secrets.EDC_SYNC_FILES_USER }}
           EDC_SYNC_FILES_USB_VOLUME: ${{ secrets.EDC_SYNC_FILES_USB_VOLUME }}
           EDC_SYNC_FILES_REMOTE_MEDIA: ${{ secrets.EDC_SYNC_FILES_REMOTE_MEDIA }}
+          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
 
