@@ -15,17 +15,6 @@ jobs:
       matrix:
         python-version: [ 3.7, 3.8, 3.9 ]
 
-    services:
-      db:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DB_NAME }}
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-        ports: [ "3306:3306" ]
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -41,6 +30,7 @@ jobs:
           pip uninstall pycryptodome -y
           pip install pycryptodome
           pip install flake8
+          pip install coverage
           pip install Django==3.1.14
       - name: Flake8 Lint
         run: flake8 ${{ github.workspace }}/potlako
@@ -54,18 +44,9 @@ jobs:
         run: echo "KEY_PATH=${HOME}/crypto_fields" >> $GITHUB_ENV
       - name: Set environment variable for media path
         run: echo "EDC_SYNC_FILES_REMOTE_MEDIA=${{ github.workspace }}/media" >> $GITHUB_ENV
-      - name: Wait for MySQL
-        run: |
-          until nc -z -v -w30 localhost 3306
-          do
-            echo "Waiting for database connection..."
-            sleep 2
-          done
-        env:
-          MYSQL_HOST: db
       - name: Run Tests
         run: |
-          python manage.py test
+          coverage run manage.py test
         env:
           BASE_API_URL: ${{ secrets.BASE_API_URL }}
           EMAIL_BACKEND: ${{ secrets.EMAIL_BACKEND }}
@@ -88,4 +69,8 @@ jobs:
           MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      - name: Report Coverage
+        run: |
+          coverage xml
+          curl -s https://codecov.io/bash | bash
 
