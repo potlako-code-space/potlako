@@ -54,6 +54,15 @@ jobs:
         run: echo "KEY_PATH=${HOME}/crypto_fields" >> $GITHUB_ENV
       - name: Set environment variable for media path
         run: echo "EDC_SYNC_FILES_REMOTE_MEDIA=${{ github.workspace }}/media" >> $GITHUB_ENV
+      - name: Wait for MySQL
+        run: |
+          until nc -z -v -w30 ${{ secrets.MYSQL_HOST }} 3306
+          do
+            echo "Waiting for database connection..."
+            sleep 2
+          done
+        env:
+          MYSQL_HOST: db
       - name: Run Tests
         run: |
           python manage.py migrate edc_facility initial
