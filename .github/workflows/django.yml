@@ -40,9 +40,9 @@ jobs:
       - name: Create directory for keys
         run: mkdir -p ~/crypto_fields
       - name: Set environment variable for key path
-        run: echo "KEY_PATH=~/crypto_fields" >> $GITHUB_ENV
+        run: echo "KEY_PATH=${HOME}/crypto_fields" >> $GITHUB_ENV
       - name: Set environment variable for media path
-        run: echo "EDC_SYNC_FILES_REMOTE_MEDIA=~/media" >> $GITHUB_ENV
+        run: echo "EDC_SYNC_FILES_REMOTE_MEDIA=${{ github.workspace }}/media" >> $GITHUB_ENV
       - name: Run Tests
         run: |
           python manage.py generate_crypto_fields_keys ~/crypto_fields
