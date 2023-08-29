@@ -45,7 +45,7 @@ jobs:
         run: echo "EDC_SYNC_FILES_REMOTE_MEDIA=~/media" >> $GITHUB_ENV
       - name: Run Tests
         run: |
-          python manage.py generate_crypto_fields_keys crypto_fields/
+          python manage.py generate_crypto_fields_keys ~/crypto_fields
           python manage.py migrate edc_facility initial
           python manage.py test
         env:
