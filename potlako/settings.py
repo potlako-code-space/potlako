@@ -182,6 +182,9 @@ DATABASES = {
         'PASSWORD': os.getenv('MYSQL_PASSWORD'),
         'HOST': os.getenv('MYSQL_HOST', 'db'),
         'PORT': '3306',
+        'OPTIONS': {
+            'unix_socket': None,  # This forces the connection to use TCP/IP
+        },
     }
 }
 
