@@ -33,8 +33,10 @@ jobs:
           pip install Django==3.1.14
       - name: Flake8 Lint
         run: flake8 ${{ github.workspace }}/potlako
-      - name: Create required directories
-        run: sudo mkdir -p /etc/potlako
+      - name: Create required directories and adjust permissions
+        run: |
+          sudo mkdir -p /etc/potlako
+          sudo chown -R $USER:$USER /etc/potlako
       - name: Create directory for keys
         run: mkdir -p ~/crypto_fields
       - name: Generate keys
