@@ -123,7 +123,7 @@ class EdcSyncFilesAppConfig(BaseEdcSyncFilesAppConfig):
     tmp_folder = os.path.join(settings.MEDIA_ROOT, 'transactions', 'tmp')
     incoming_folder = os.path.join(settings.MEDIA_ROOT, 'transactions', 'incoming')
     media_path = os.path.join(settings.MEDIA_ROOT, 'verbal_consents')
-    media_dst = os.path.join(remote_media, 'verbal_consents')
+    media_dst = os.path.join(settings.MEDIA_ROOT, 'verbal_consents')
     media_tmp = os.path.join('/tmp/')
 
     def make_required_folders(self):
