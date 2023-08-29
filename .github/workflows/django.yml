@@ -54,8 +54,8 @@ jobs:
           EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
-          EVALUATION_TIMELINE: ${{ secrets.EVALUATION_TIMELINE }}
-          NAV_PLAN_API: ${{ secrets.NAV_PLAN_API }}
+          EDC_SYNC_EVALUATION_TIMELINE_API: ${{ secrets.EVALUATION_TIMELINE }}
+          EDC_SYNC_NAV_PLAN_API: ${{ secrets.NAV_PLAN_API }}
           EDC_DEVICE_ID: ${{ secrets.EDC_DEVICE_ID }}
           EDC_DEVICE_ROLE: ${{ secrets.EDC_DEVICE_ROLE }}
           EDC_SYNC_SERVER_IP: ${{ secrets.EDC_SYNC_SERVER_IP }}

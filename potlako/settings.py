@@ -236,8 +236,8 @@ USE_L10N = False
 USE_TZ = True
 
 # server api for updating navigation plans
-EVALUATION_TIMELINE = os.getenv('evaluation_timeline_api')
-NAV_PLAN_API = os.getenv('nav_plan_api')
+EVALUATION_TIMELINE = os.getenv('EDC_SYNC_EVALUATION_TIMELINE_API')
+NAV_PLAN_API = os.getenv('EDC_SYNC_NAV_PLAN_API')
 
 # Django q configurations
 
@@ -302,13 +302,13 @@ PARENT_REFERENCE_MODEL2 = ''
 
 COMMUNITIES = os.getenv('COMMUNITIES_ENHANCED_CARE')
 
-DEVICE_ID = os.getenv('device_id')
-DEVICE_ROLE = os.getenv('role')
+DEVICE_ID = os.getenv('EDC_DEVICE_ID')
+DEVICE_ROLE = os.getenv('EDC_DEVICE_ROLE')
 
-EDC_SYNC_SERVER_IP = os.getenv('server_ip')
-EDC_SYNC_FILES_REMOTE_HOST = os.getenv('remote_host')
-EDC_SYNC_FILES_USER = os.getenv('sync_user')
-EDC_SYNC_FILES_USB_VOLUME = os.getenv('usb_volume')
+EDC_SYNC_SERVER_IP = os.getenv('EDC_SYNC_SERVER_IP')
+EDC_SYNC_FILES_REMOTE_HOST = os.getenv('EDC_SYNC_FILES_REMOTE_HOST')
+EDC_SYNC_FILES_USER = os.getenv('EDC_SYNC_FILES_USER')
+EDC_SYNC_FILES_USB_VOLUME = os.getenv('EDC_SYNC_FILES_USB_VOLUME')
 
 CORS_ALLOW_ALL_ORIGINS = True
 # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
