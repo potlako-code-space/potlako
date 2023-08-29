@@ -33,11 +33,13 @@ jobs:
           pip install Django==3.1.14
       - name: Flake8 Lint
         run: flake8 ${{ github.workspace }}/potlako
+      - name: Create required directories
+        run: sudo mkdir -p /etc/potlako/django_crypto_fields
       - name: Create directory for keys
         run: mkdir -p ~/crypto_fields
       - name: Generate keys
         run: |
-          python manage.py generate_crypto_fields_keys ~/crypto_fields
+          python manage.py generate_crypto_fields_keys crypto_fields/
       - name: Set environment variable for key path
         run: echo "KEY_PATH=~/crypto_fields" >> $GITHUB_ENV
       - name: Set environment variable for media path
