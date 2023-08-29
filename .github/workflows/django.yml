@@ -34,7 +34,7 @@ jobs:
       - name: Flake8 Lint
         run: flake8 ${{ github.workspace }}/potlako
       - name: Create required directories
-        run: sudo mkdir -p /etc/potlako/django_crypto_fields
+        run: sudo mkdir -p /etc/potlako
       - name: Create directory for keys
         run: mkdir -p ~/crypto_fields
       - name: Generate keys
