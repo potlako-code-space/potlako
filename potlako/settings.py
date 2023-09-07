@@ -17,8 +17,6 @@ import sys
 from django.core.management.color import color_style
 from dotenv import load_dotenv
 
-from .keys_check import key_check
-
 load_dotenv()
 
 # from .logging import LOGGING
@@ -38,8 +36,6 @@ INDEX_PAGE = 'potlako-plus.bhp.org.bw:8000'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-AUTO_CREATE_KEYS = not key_check()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o(^0$9zu2w5eby-^x&dd441d(@*#(+($can2uomfq%o(@p-fm+'
