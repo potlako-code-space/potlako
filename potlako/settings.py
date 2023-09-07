@@ -15,6 +15,11 @@ import os
 import sys
 
 from django.core.management.color import color_style
+from dotenv import load_dotenv
+
+from .keys_check import key_check
+
+load_dotenv()
 
 # from .logging import LOGGING
 style = color_style()
@@ -33,6 +38,8 @@ INDEX_PAGE = 'potlako-plus.bhp.org.bw:8000'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
+
+AUTO_CREATE_KEYS = not key_check()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'o(^0$9zu2w5eby-^x&dd441d(@*#(+($can2uomfq%o(@p-fm+'
@@ -166,23 +173,14 @@ WSGI_APPLICATION = 'potlako.wsgi.application'
 mysql_config = configparser.ConfigParser()
 mysql_config.read(os.path.join(ETC_DIR, 'mysql.ini'))
 
-HOST = 'db'
-DB_USER = os.getenv('MYSQL_USER')
-DB_PASSWORD = os.getenv('MYSQL_PASSWORD')
-DB_NAME = os.getenv('MYSQL_DB_NAME')
-PORT = '3306'
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('MYSQL_DB_NAME'),
         'USER': os.getenv('MYSQL_USER'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'PASSWORD': os.getenv('MYSQL_DB_PASSWORD'),
         'HOST': os.getenv('MYSQL_HOST', 'db'),
         'PORT': '3306',
-        'OPTIONS': {
-            'unix_socket': None,  # This forces the connection to use TCP/IP
-        },
     }
 }
 

@@ -3,23 +3,37 @@ version: "3.9"
 services:
   db:
     image: mysql:5.7
+    platform: linux/x86_64
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
+    env_file:
+      - ./.env
     environment:
-      MYSQL_HOST: db
-      MYSQL_DB_USER: your_mysql_username
-      MYSQL_DB_PASSWORD: your_mysql_password
-      MYSQL_DB_NAME: your_database_name
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_DB_PASSWORD: ${MYSQL_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_USER}
       MYSQL_PORT: 3306
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: [ "CMD", "mysqladmin","-p${MYSQL_ROOT_PASSWORD}","ping","-h","localhost" ]
+      interval: 20s
+      timeout: 10s
+      retries: 10
   web:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
+    command: ["/bin/bash", "-c", "/app/mysql/db_restore.sh && ./wait_for_db.sh db ${MYSQL_USER} ${MYSQL_DB_PASSWORD} python manage.py runserver 0:8000"]
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    env_file:
+      - ./.env
     environment:
       EDC_SMS_BASE_API_URL: ${EDC_SMS_BASE_API_URL}
       BASE_API_URL: ${BASE_API_URL}
@@ -40,6 +54,10 @@ services:
       EDC_SYNC_FILES_REMOTE_HOST: ${EDC_SYNC_FILES_REMOTE_HOST}
       EDC_SYNC_FILES_USB_VOLUME: ${EDC_SYNC_FILES_USB_VOLUME}
       EDC_SYNC_FILES_REMOTE_MEDIA: ${EDC_SYNC_FILES_REMOTE_MEDIA}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_DB_PASSWORD: ${MYSQL_DB_PASSWORD}
+      MYSQL_DB_NAME: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_USER}
 
 volumes:
   mysql_data:
