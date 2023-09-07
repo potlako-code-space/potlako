@@ -15,6 +15,9 @@ import os
 import sys
 
 from django.core.management.color import color_style
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # from .logging import LOGGING
 style = color_style()
@@ -166,23 +169,14 @@ WSGI_APPLICATION = 'potlako.wsgi.application'
 mysql_config = configparser.ConfigParser()
 mysql_config.read(os.path.join(ETC_DIR, 'mysql.ini'))
 
-HOST = 'db'
-DB_USER = os.getenv('MYSQL_USER')
-DB_PASSWORD = os.getenv('MYSQL_PASSWORD')
-DB_NAME = os.getenv('MYSQL_DB_NAME')
-PORT = '3306'
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('MYSQL_DB_NAME'),
         'USER': os.getenv('MYSQL_USER'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'PASSWORD': os.getenv('MYSQL_DB_PASSWORD'),
         'HOST': os.getenv('MYSQL_HOST', 'db'),
         'PORT': '3306',
-        'OPTIONS': {
-            'unix_socket': None,  # This forces the connection to use TCP/IP
-        },
     }
 }
 

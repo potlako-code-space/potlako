@@ -4,38 +4,37 @@ on:
   push:
     branches: [ main ]
 
+concurrency:
+  group: master
+  cancel-in-progress: true
+
 jobs:
-  build_and_deploy:
+  quality-assurance:
+    name: Quality Assurance
+    uses: ./.github/workflows/django.yml
+
+  deploy:
+    name: Deploy
+    needs: quality-assurance
     runs-on: ubuntu-latest
     steps:
-    - name: Check Out Code
-      uses: actions/checkout@v2
-
-    - name: Log in to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-    - name: Build and Push Docker Image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/django-app:latest
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-
-    # Assuming deployment to a VPS
-    - name: Deploy to Server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        script: |
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/django-app:latest
-          docker stop django-app-container
-          docker rm django-app-container
-          docker run -d --name django-app-container -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/django-app:latest
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/github
+          chmod 600 ~/.ssh/github
+          cat >>~/.ssh/config <<END
+          Host target
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/github
+            LogLevel ERROR
+            StrictHostKeyChecking no
+          END
+      - name: Run deploy
+        run: |
+          ssh target "cd potlako/ && docker-compose down && git pull && docker-compose build && docker-compose up -d --force-recreate"

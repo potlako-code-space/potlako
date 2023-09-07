@@ -2,7 +2,7 @@
 FROM python:3.9.6-slim-buster
 
 # Set work directory in the Docker image
-WORKDIR /app
+WORKDIR /potlako
 
 # Set environment variables in the Docker image
 # Prevents Python from writing pyc files to disc (equivalent to python -B option)
@@ -29,13 +29,46 @@ ENV EDC_SYNC_FILES_SYNC_USER ${EDC_SYNC_FILES_SYNC_USER}
 ENV EDC_SYNC_FILES_REMOTE_HOST ${EDC_SYNC_FILES_REMOTE_HOST}
 ENV EDC_SYNC_FILES_USB_VOLUME ${EDC_SYNC_FILES_USB_VOLUME}
 ENV EDC_SYNC_FILES_REMOTE_MEDIA ${EDC_SYNC_FILES_REMOTE_MEDIA}
+ENV MYSQL_ROOT_PASSWORD ${MYSQL_ROOT_PASSWORD}
+ENV MYSQL_DB_NAME ${MYSQL_DB_NAME}
+ENV MYSQL_USER ${MYSQL_USER}
+ENV MYSQL_DB_PASSWORD ${MYSQL_DB_PASSWORD}
+ENV SSH_PASSWORD ${SSH_PASSWORD}
+
+SHELL ["/bin/bash", "-c"]
+
+RUN function retry { for _ in {1..3}; do "$@" && return || sleep 5; done; }; \
+    retry apt-get update && retry apt-get install -y git default-libmysqlclient-dev gcc pkg-config libcups2-dev
+RUN apt-get update && apt-get install -y curl
+# Dockerfile
+RUN apt-get update && apt-get install -y mariadb-client
+RUN apt-get update && apt-get install -y rsync
+# Upgrade pip
+RUN pip install --upgrade pip
+
+#copy ssh key
+COPY .ssh/id_rsa /root/.ssh/id_rsa
+
+#update permissions
+RUN chmod 600 ~/.ssh/id_rsa
 
 # Install dependencies
 COPY ./requirements_production.txt .
-RUN pip install --upgrade pip && pip install -r requirements_production.txt
+RUN pip install --upgrade pip \
+    && pip install -r requirements_production.txt -U \
+    && pip uninstall pycrypto -y \
+    && pip uninstall pycryptodome -y \
+    && pip install python-dotenv \
+    && pip install pycryptodome \
+    && pip install Django==3.1.14
+
+RUN mkdir -p /etc/potlako \
+    && mkdir -p ~/crypto_fields \
+    && chown -R $USER:$USER /etc/potlako
 
 # Copy project
 COPY . .
 
 # Run the application:
+CMD [ "python", "‘db_check’.py"]
 CMD [ "python", "./manage.py", "runserver", "0.0.0.0:8000" ]
