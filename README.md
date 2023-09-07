@@ -3,3 +3,11 @@
 EDC Potlako Plus
 
 A multilevel intervention to improve timely cancer detection and treatment initiation in Botswana
+
+### **Developer Set Up**
+
+| Issue | Description |
+| ----------- | ----------- |
+| Local installation |  requirement_production.txt |
+| DjangoCryptoFieldsKeyPathDoesNotExist | change debug=True on the settings file and comment out KEY_PATH |
+<br/>
