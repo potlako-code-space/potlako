@@ -112,7 +112,7 @@ jobs:
             EDC_SYNC_FILES_USER=${{ secrets.EDC_SYNC_FILES_USER }}
             EDC_SYNC_FILES_USB_VOLUME=${{ secrets.EDC_SYNC_FILES_USB_VOLUME }}
             EDC_SYNC_FILES_REMOTE_MEDIA=${{ secrets.EDC_SYNC_FILES_REMOTE_MEDIA }}
-            MYSQL_HOST=localhost
+            MYSQL_HOST=${{ secrets.MYSQL_HOST }}
             MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
             MYSQL_DB_NAME=${{ secrets.MYSQL_DB_NAME }}
             MYSQL_USER=${{ secrets.MYSQL_USER }}
