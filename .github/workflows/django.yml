@@ -95,4 +95,27 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/potlako_image:${{ github.sha }}
-
+          build-args: |
+            EDC_SMS_BASE_API_URL: ${secrets.BASE_API_URL}
+            BASE_API_URL: ${secrets.BASE_API_URL}
+            EMAIL_BACKEND: ${secrets.EMAIL_BACKEND}
+            EMAIL_HOST: ${secrets.EMAIL_HOST}
+            EMAIL_USE_TLS: ${secrets.EMAIL_USE_TLS}
+            EMAIL_PORT: ${secrets.EMAIL_PORT}
+            EMAIL_USER: ${secrets.EMAIL_USER}
+            EMAIL_HOST_PASSWORD: ${secrets.EMAIL_HOST_PASSWORD}
+            COMMUNITIES_ENHANCED_CARE: ${secrets.COMMUNITIES_ENHANCED_CARE}
+            COMMUNITIES_INTERVENTION: ${secrets.COMMUNITIES_INTERVENTION}
+            EDC_DEVICE_ROLE: ${secrets.EDC_DEVICE_ROLE}
+            EDC_DEVICE_ID: ${secrets.EDC_DEVICE_ID}
+            EDC_SYNC_SERVER_IP: ${secrets.EDC_SYNC_SERVER_IP}
+            EDC_SYNC_EVALUATION_TIMELINE_API: ${secrets.EDC_SYNC_EVALUATION_TIMELINE_API}
+            EDC_SYNC_NAV_PLAN_API: ${secrets.EDC_SYNC_NAV_PLAN_API}
+            EDC_SYNC_FILES_SYNC_USER: ${secrets.EDC_SYNC_FILES_SYNC_USER}
+            EDC_SYNC_FILES_REMOTE_HOST: ${secrets.EDC_SYNC_FILES_REMOTE_HOST}
+            EDC_SYNC_FILES_USB_VOLUME: ${secrets.EDC_SYNC_FILES_USB_VOLUME}
+            EDC_SYNC_FILES_REMOTE_MEDIA: ${secrets.EDC_SYNC_FILES_REMOTE_MEDIA}
+            MYSQL_HOST: ${secrets.MYSQL_HOST}
+            MYSQL_DB_PASSWORD: ${secrets.MYSQL_DB_PASSWORD}
+            MYSQL_DB_NAME: ${MYSQL_DB_NAME}
+            MYSQL_USER: ${secrets.MYSQL_USER}
