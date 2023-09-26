@@ -1,0 +1,15 @@
+# Using the mysql:5.7 image as base
+FROM mysql:5.7
+
+# Set environment variables
+ENV MYSQL_ROOT_PASSWORD ${MYSQL_ROOT_PASSWORD}
+ENV MYSQL_DATABASE ${MYSQL_DB_NAME}
+ENV MYSQL_USER ${MYSQL_USER}
+ENV MYSQL_PASSWORD ${MYSQL_PASSWORD}
+ENV MYSQL_ALLOW_EMPTY_PASSWORD no
+
+# Add a custom MySQL configuration file, e.g., if you have a 'my.cnf' file in the same directory
+# COPY my.cnf /etc/mysql/my.cnf
+
+# Add your .sql or .sh scripts in the /docker-entrypoint-initdb.d directory
+# COPY ./scripts.sql /docker-entrypoint-initdb.d/
