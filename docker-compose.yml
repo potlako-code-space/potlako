@@ -4,7 +4,7 @@ services:
   db:
     build:
       context: .
-      dockerfile: Dockerfile.db
+      dockerfile: ./Dockerfile.db
     platform: linux/x86_64
     volumes:
       - mysql_data:/var/lib/mysql
