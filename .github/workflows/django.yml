@@ -90,10 +90,10 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ${{ github.workspace }}
           platforms: linux/amd64,linux/arm64
           push: true
-          file: ${{ github.workspace }}/Dockerfile.db
+          file: ./Dockerfile.db
           tags: ${{ secrets.DOCKER_USERNAME }}/potlako_db_image:${{ github.sha }}
           build-args: |
             MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
