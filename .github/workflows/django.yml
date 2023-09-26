@@ -136,7 +136,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          file: Dockerfile.db
+          file: ${{ github.workspace }}/Dockerfile.db
           tags: ${{ secrets.DOCKER_USERNAME }}/potlako_db_image:${{ github.sha }}
           build-args: |
             MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
