@@ -2,13 +2,13 @@ version: "3.9"
 
 services:
   db:
-    build:
-      context: .
-      dockerfile: ./Dockerfile.db
+    image: mysql:5.7
     platform: linux/x86_64
     volumes:
       - mysql_data:/var/lib/mysql
       - ./mysql:/docker-entrypoint-initdb.d
+    env_file:
+      - ./.env
     environment:
       MYSQL_HOST: ${MYSQL_HOST}
       MYSQL_DB_PASSWORD: ${MYSQL_DB_PASSWORD}
@@ -22,7 +22,6 @@ services:
       interval: 20s
       timeout: 10s
       retries: 10
-
   web:
     build: .
     command: ["/bin/bash", "-c", "/app/mysql/db_restore.sh && ./wait_for_db.sh db ${MYSQL_USER} ${MYSQL_DB_PASSWORD} python manage.py runserver 0:8000"]
